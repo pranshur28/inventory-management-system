@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Transactions - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-exchange-alt me-2"></i>Transactions</h1>
+    <a href="{{ url_for('add_transaction') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-1"></i> Add Transaction
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        {% if transactions %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Date</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ transaction.product.name }}</td>
+                        <td>{{ transaction.product.category.name }}</td>
+                        <td>
+                            <span class="badge bg-{{ 'success' if transaction.transaction_type == 'in' else 'danger' }}">
+                                {{ transaction.transaction_type|upper }}
+                            </span>
+                        </td>
+                        <td>{{ transaction.quantity }}</td>
+                        <td>{{ transaction.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ transaction.notes }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-exchange-alt fa-4x text-muted mb-3"></i>
+            <h3>No Transactions Found</h3>
+            <p class="text-muted">Start by adding a new transaction to your inventory.</p>
+            <a href="{{ url_for('add_transaction') }}" class="btn btn-primary mt-2">
+                <i class="fas fa-plus me-1"></i> Add Transaction
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
