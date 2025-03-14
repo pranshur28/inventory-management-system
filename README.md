@@ -59,4 +59,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Author
 
-[Pranshu Rastogi](https://github.com/pranshur28)
+[Pranshu Rampal](https://github.com/pranshur28)
